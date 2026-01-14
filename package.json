@@ -1,0 +1,13 @@
+{
+  "name": "demowebshop-playwright",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "playwright test --headed"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^25.0.6",
+    "allure-playwright": "^3.4.4"
+  }
+}
