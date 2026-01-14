@@ -12,7 +12,7 @@ module.exports = defineConfig({
     ],
         reporter: [
         ['html', { open: 'never' }],
-        ['allure-playwright'],
+        ['allure-playwright',{ outputFolder: 'allure-results' }],
     ],
     use: {
       baseURL:'https://demowebshop.tricentis.com/',
