@@ -22,7 +22,7 @@ test("Register User for female", async({page}) =>{
     lastname: "Doe",
     email: `john${Date.now()}@mail.com`,
     password: "123456",
-    fpassword: "123456",        
+    fpassword: "",        
     });
 })
 
