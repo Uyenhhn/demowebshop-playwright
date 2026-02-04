@@ -16,13 +16,6 @@ export default class HomePage{
     pageBodyComponent(): PageBodyComponent{
         return new PageBodyComponent(this.page.locator(PageBodyComponent.selector));
     }
-    computerComponent(computerType: string): ComputerComponent {
-        if (computerType === ComputerType.standard) {
-            return new StandardComputerComponent(this.page);
-        } else {
-            return new CheapComputerComponent();
-        }
-    }
 
 
 }
