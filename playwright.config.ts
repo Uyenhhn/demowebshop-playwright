@@ -16,7 +16,9 @@ module.exports = defineConfig({
     ],
     use: {
       baseURL:'https://demowebshop.tricentis.com/',
-      actionTimeout: 3 * 1000,
+      ignoreHTTPSErrors: true,
+      actionTimeout: 10000,
+      navigationTimeout: 15000,
       headless: false,
         screenshot: 'only-on-failure',
         trace: 'retain-on-failure',

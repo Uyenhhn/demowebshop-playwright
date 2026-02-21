@@ -1,6 +1,6 @@
 import {test, expect } from "@playwright/test";
 import HomePage from "../src/features/home/Pages/HomePage";
-
+import { buildYourOwnComputerData as testData } from "../tests/test-data/buildYourOwnComputer.data"
 test("Test List of Product Item Component", async ({ page }) => {
     await page.goto("/");
     const home = new HomePage(page);
