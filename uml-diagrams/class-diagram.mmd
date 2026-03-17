@@ -1,0 +1,61 @@
+classDiagram
+    class LoginComponent {
+        -Locator component
+    }
+    class NewCustomerComponent {
+        -Locator component
+    }
+    class RegisterComponent {
+        -Locator component
+    }
+    class LoginFlow {
+        -Page page
+    }
+    class RegisterFlow {
+        -Page page
+    }
+    class LoginPage {
+        -Page page
+    }
+    class RegisterPage {
+        -Page page
+    }
+    class PageBodyComponent {
+        -Locator component
+    }
+    class ProductItemComponent {
+        -Locator component
+    }
+    class HomePage {
+        -Page page
+    }
+    class CheapComputerComponent {
+        +Locator component
+    }
+    ComputerEssentialComponent <|-- CheapComputerComponent
+    class ComputerComponent {
+        #Locator component
+    }
+    class ComputerEssentialComponent {
+        #Locator component
+    }
+    class StandardComputerComponent {
+        +Locator component
+    }
+    ComputerEssentialComponent <|-- StandardComputerComponent
+    class BuyingComputerFlow {
+        -Page page
+        -ComputerData testData
+    }
+    class SelectOptionsFlow {
+        +Page page
+    }
+    class ProductDetailsPage {
+        +Page page
+    }
+    class ComputerDetailsPage {
+        +Page page
+    }
+    class HeaderComponent {
+        -Locator component
+    }

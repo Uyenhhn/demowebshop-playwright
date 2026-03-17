@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UML Diagram</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose'
+        });
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .mermaid {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="mermaid">
+erDiagram
+    ComputerEssentialComponent ||--|| CheapComputerComponent : inherits
+    ComputerEssentialComponent ||--|| StandardComputerComponent : inherits
+
+    LoginComponent {
+        Locator component
+        int id PK
+    }
+    NewCustomerComponent {
+        Locator component
+        int id PK
+    }
+    RegisterComponent {
+        Locator component
+        int id PK
+    }
+    LoginFlow {
+        Page page
+        int id PK
+    }
+    RegisterFlow {
+        Page page
+        int id PK
+    }
+    LoginPage {
+        Page page
+        int id PK
+    }
+    RegisterPage {
+        Page page
+        int id PK
+    }
+    PageBodyComponent {
+        Locator component
+        int id PK
+    }
+    ProductItemComponent {
+        Locator component
+        int id PK
+    }
+    HomePage {
+        Page page
+        int id PK
+    }
+    CheapComputerComponent {
+        Locator component
+        int id PK
+    }
+    ComputerComponent {
+        Locator component
+        int id PK
+    }
+    ComputerEssentialComponent {
+        Locator component
+        int id PK
+    }
+    StandardComputerComponent {
+        Locator component
+        int id PK
+    }
+    BuyingComputerFlow {
+        Page page
+        ComputerData testData
+        int id PK
+    }
+    SelectOptionsFlow {
+        Page page
+        int id PK
+    }
+    ProductDetailsPage {
+        Page page
+        int id PK
+    }
+    ComputerDetailsPage {
+        Page page
+        int id PK
+    }
+    HeaderComponent {
+        Locator component
+        int id PK
+    }
+
+    </div>
+</body>
+</html>

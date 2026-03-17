@@ -1,0 +1,13 @@
+sequenceDiagram
+    participant User
+    participant LoginComponent
+    participant NewCustomerComponent
+    participant RegisterComponent
+    participant LoginFlow
+    participant RegisterFlow
+    User->>+LoginComponent: Initialize
+    LoginComponent->>+NewCustomerComponent: process()
+    NewCustomerComponent->>+RegisterComponent: process()
+    RegisterComponent->>+LoginFlow: process()
+    LoginFlow->>+RegisterFlow: process()
+    RegisterFlow-->>-User: Complete

@@ -1,0 +1,81 @@
+erDiagram
+    ComputerEssentialComponent ||--|| CheapComputerComponent : inherits
+    ComputerEssentialComponent ||--|| StandardComputerComponent : inherits
+
+    LoginComponent {
+        Locator component
+        int id PK
+    }
+    NewCustomerComponent {
+        Locator component
+        int id PK
+    }
+    RegisterComponent {
+        Locator component
+        int id PK
+    }
+    LoginFlow {
+        Page page
+        int id PK
+    }
+    RegisterFlow {
+        Page page
+        int id PK
+    }
+    LoginPage {
+        Page page
+        int id PK
+    }
+    RegisterPage {
+        Page page
+        int id PK
+    }
+    PageBodyComponent {
+        Locator component
+        int id PK
+    }
+    ProductItemComponent {
+        Locator component
+        int id PK
+    }
+    HomePage {
+        Page page
+        int id PK
+    }
+    CheapComputerComponent {
+        Locator component
+        int id PK
+    }
+    ComputerComponent {
+        Locator component
+        int id PK
+    }
+    ComputerEssentialComponent {
+        Locator component
+        int id PK
+    }
+    StandardComputerComponent {
+        Locator component
+        int id PK
+    }
+    BuyingComputerFlow {
+        Page page
+        ComputerData testData
+        int id PK
+    }
+    SelectOptionsFlow {
+        Page page
+        int id PK
+    }
+    ProductDetailsPage {
+        Page page
+        int id PK
+    }
+    ComputerDetailsPage {
+        Page page
+        int id PK
+    }
+    HeaderComponent {
+        Locator component
+        int id PK
+    }

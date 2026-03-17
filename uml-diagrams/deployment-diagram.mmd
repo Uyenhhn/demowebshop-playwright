@@ -1,0 +1,40 @@
+graph TB
+    subgraph "Client Tier"
+        Browser[Web Browser]
+        Mobile[Mobile App]
+    end
+
+    subgraph "Application Server"
+        WebServer[Web Server]
+        AppServer[Application Server]
+        src[src]
+        tests[tests]
+    end
+
+    subgraph "Data Tier"
+        Database[(Database Server)]
+        Cache[(Cache Server)]
+    end
+
+    subgraph "External Services"
+        _playwright_test[@playwright/test]
+        _playwright_test[@playwright/test]
+        _playwright_test[@playwright/test]
+    end
+
+    Browser --> WebServer
+    Mobile --> WebServer
+    WebServer --> AppServer
+    AppServer --> src
+    src --> Database
+    AppServer --> tests
+    tests --> Database
+    AppServer --> Cache
+    AppServer --> _playwright_test
+    AppServer --> _playwright_test
+    AppServer --> _playwright_test
+
+    style Browser fill:#e1f5ff
+    style Mobile fill:#e1f5ff
+    style Database fill:#ffe1e1
+    style Cache fill:#ffe1e1

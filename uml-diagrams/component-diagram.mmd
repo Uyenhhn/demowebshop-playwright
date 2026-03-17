@@ -1,0 +1,18 @@
+graph TB
+    subgraph "Modules"
+        src[src]
+        tests[tests]
+    end
+
+    subgraph "External Libraries"
+        _playwright_test[@playwright/test]
+        _playwright_test[@playwright/test]
+        _playwright_test[@playwright/test]
+        _playwright_test[@playwright/test]
+        _playwright_test[@playwright/test]
+    end
+
+
+    classDef moduleStyle fill:#e1f5ff,stroke:#0066cc
+    classDef serviceStyle fill:#ffe1e1,stroke:#cc0000
+    classDef libraryStyle fill:#e1ffe1,stroke:#00cc00
