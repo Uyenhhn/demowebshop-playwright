@@ -2,7 +2,9 @@ import { test, expect } from "@playwright/test";
 import HomePage from "../src/features/home/Pages/HomePage";
 import { standardComputerData } from "./test-data/StandardComputerData";
 
-test("Test List of Product Item Component", async ({ page }) => {
+for (const testData of standardComputerData){
+    test(`Test HomePage List - ${testData.ram}`, async ({page}) => {
+
     await page.goto("/");
     const home = new HomePage(page);
     const items = await home.pageBodyComponent().featuredProductItems();
@@ -17,7 +19,8 @@ test("Test List of Product Item Component", async ({ page }) => {
         expect(name).not.toBe("");
         expect(price).not.toBe("");
     }
+    await home.pageBodyComponent().openFeaturedProductByName(testData.productName);
 
-    await home.pageBodyComponent().openFeaturedProductByName(standardComputerData.productName);
-
-})
+    
+});
+}

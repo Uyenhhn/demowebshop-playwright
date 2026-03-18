@@ -1,34 +1,135 @@
-import test, { Page } from "@playwright/test";
+import test, { expect, Page } from "@playwright/test";
 import { ComputerDetailsPage } from "../Pages/ComputerDetailsPage";
 import { ComputerEssentialComponent } from "../Component/ComputerEssentialComponent";
 import { ComputerDataType } from "../Types/ComputerType";
+import { ShoppingCartPage } from "../../cart/Pages/ShoppingCartPage";
+import { CheckoutOptionPage } from "../../cart/Pages/CheckoutOptionPage";
 
 
 
 export class BuyingComputerFlow {
 
-    constructor(private page: Page, private testData: ComputerDataType){
+    private totalPrice: number = 0;
+
+    constructor(private page: Page, private testData: ComputerDataType) {
         this.page = page;
         this.testData = testData;
     }
 
-    async buildComputerSpecAndAddToCart(){
-        await test.step('Build computer spec and add to cart',async () => {
-            const computerDetailsPage: ComputerDetailsPage = new ComputerDetailsPage(this.page);
-            const {processorType, ram, hdd, os, software } = this.testData;
-            const computerComp: ComputerEssentialComponent = computerDetailsPage.computerComp(this.testData.computerCompClass);
-            await computerComp.unselectAllOptions();
-            await computerComp.selectProcessor(processorType);
-            await computerComp.selectHDD(hdd);
-            await computerComp.selectRam(ram);
-            if (os){
-                await computerComp.selectOS(os);
-            }
-            await computerComp.selectSoftware(software);
-            await computerComp.clickOnAddToCartBtn();
+    async buildComputerSpecAndAddToCart() {
+        await test.step('Build computer spec and add to cart', async () => {
+            const computerDetailsPage = new ComputerDetailsPage(this.page);
+            const computerComp = computerDetailsPage.computerComp(this.testData.computerCompClass);
 
+            const { processorType, ram, hdd, os, software } = this.testData;
+
+            await computerComp.unselectAllOptions();
+
+            // SELECT + LẤY TEXT OPTION
+            const processorText = await computerComp.selectProcessor(processorType);
+            const hddText = await computerComp.selectHDD(hdd);
+            const ramText = await computerComp.selectRam(ram);
+            const softwareText = await computerComp.selectSoftware(software);
+
+            let osText: string | null = null;
+            if (os) {
+                osText = await computerComp.selectOS(os);
+            }
+
+            // TÍNH GIÁ ADDITIONAL
+            const processorPrice = await this.getAdditionalPrice(processorText);
+            const hddPrice = await this.getAdditionalPrice(hddText);
+            const ramPrice = await this.getAdditionalPrice(ramText);
+            const softwarePrice = await this.getAdditionalPrice(softwareText);
+            const osPrice = await this.getAdditionalPrice(osText);
+
+            const additionalPrice = processorPrice + hddPrice + ramPrice + softwarePrice + osPrice;
+
+            // LẤY GIÁ GỐC
+            const basePrice = await computerComp.getProductPrice();
+
+            // GIÁ 1 ITEM
+            const itemPrice = basePrice + additionalPrice;
+
+            // SỐ LƯỢNG
+            const quantity = await computerComp.getProductQuantity();
+
+            // TOTAL (LƯU LẠI)
+            this.totalPrice = itemPrice * quantity;
+
+            console.log('Base price:', basePrice);
+            console.log('Additional price:', additionalPrice);
+            console.log('Total price:', this.totalPrice);
+
+            // ADD TO CART
+            await computerComp.clickOnAddToCartBtn();
         });
     }
 
+    async getAdditionalPrice(optionText: string | null): Promise<number> {
+    if (!optionText) return 0;
 
+    const regex = /\+\d+\.\d+/;
+    const match = optionText.match(regex);
+
+    if (match) {
+        return Number(match[0].replace('+', '').trim());
+    }
+
+    return 0;
+    }
+    async verifyShoppingCart() {
+        await test.step('Verify shopping cart logic', async () => {
+            const shoppingCartPage = new ShoppingCartPage(this.page);
+
+            // Lấy tất cả row item trong giỏ hàng
+            const cartItemRowComponentList = await shoppingCartPage.cartItemRowComponentList();
+
+            // Lặp từng item, verify unitPrice * quantity = subTotal
+            for (let cartItemRow of cartItemRowComponentList) {
+                const unitPrice = await cartItemRow.unitPrice();
+                const quantity = await cartItemRow.quantity();
+                const subTotal = await cartItemRow.subTotal();
+
+                console.log(`Item check → unitPrice: ${unitPrice}, quantity: ${quantity}, subTotal: ${subTotal}`);
+                expect(unitPrice * quantity).toBe(subTotal);
+            }
+
+            // Lấy tổng tiền UI
+            const totalComponent = await shoppingCartPage.totalComponent();
+            const priceCategories = await totalComponent.priceCategories();
+
+            const subTotal = priceCategories["Sub-Total:"];
+            const shippingFee = priceCategories["Shipping:"];
+            const tax = priceCategories["Tax:"];
+            const total = priceCategories["Total:"];
+
+            console.log(`Price categories from UI: ${JSON.stringify(priceCategories)}`);
+
+            // Verify tổng UI
+            expect(total).toBe(subTotal + shippingFee + tax);
+
+            // So sánh với tổng giá bạn tự tính
+            expect(total).toBe(this.totalPrice);
+        });
+    }
+
+    async completeCheckout() {
+        await test.step('Complete checkout process', async () => {
+            const shoppingCartPage = new ShoppingCartPage(this.page);
+            const totalComponent = await shoppingCartPage.totalComponent();
+
+            await totalComponent.acceptTOS();
+            await totalComponent.clickOnCheckOutBtn();
+            
+            const checkoutOptionPage = new CheckoutOptionPage(this.page);
+            await checkoutOptionPage.clickOnCheckOutAsGuestBtn();
+
+    });
+    }
+
+    async BillingAddressStep() {
+        await test.step('Fill billing address and continue', async () => {
+    });
+    }
 }

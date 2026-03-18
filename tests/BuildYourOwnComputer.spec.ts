@@ -10,6 +10,14 @@ for (const testData of standardComputerData){
     await clickProduct.pageBodyComponent().openFeaturedProductByName(testData.productName);
     const flow = new BuyingComputerFlow(page, testData);
     await flow.buildComputerSpecAndAddToCart();
+    await page.waitForTimeout(3 * 1000);
 
+    await clickProduct.headerComponent().clickOnShoppingCartLink();
+    await flow.verifyShoppingCart();
+    
+
+
+     // DEBUG PURPOSE ONLY
+    await page.waitForTimeout(3 * 1000);
     });
 }
