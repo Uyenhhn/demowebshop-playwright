@@ -17,7 +17,11 @@ export default class PageBodyComponent {
 
     async openFeaturedProductByName(name: string): Promise<void> {
         const featured = this.component.locator(this.featuredBlockSel);
-        await featured.locator(".product-title a", { hasText: name }).click();
+
+        await Promise.all([
+            this.component.page().waitForURL("**/build-your-own-computer"),
+            featured.locator(".product-title a", { hasText: name }).click()
+        ]);
     }
 
 }
