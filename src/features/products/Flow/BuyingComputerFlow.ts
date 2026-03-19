@@ -4,6 +4,7 @@ import { ComputerEssentialComponent } from "../Component/ComputerEssentialCompon
 import { ComputerDataType } from "../Types/ComputerType";
 import { ShoppingCartPage } from "../../cart/Pages/ShoppingCartPage";
 import { CheckoutOptionPage } from "../../cart/Pages/CheckoutOptionPage";
+import { CheckOutPage } from "../../checkout/pages/CheckOutPage";
 
 
 
@@ -130,6 +131,30 @@ export class BuyingComputerFlow {
 
     async BillingAddressStep() {
         await test.step('Fill billing address and continue', async () => {
+            const { fistName, 
+                    lastName, 
+                    email, 
+                    company, 
+                    state, 
+                    city, 
+                    address1, 
+                    address2, 
+                    zipPostalCode, 
+                    phoneNumber 
+                } = this.testData;
+            const checkOutPage = new CheckOutPage(this.page);
+            const billingAddressComponent = checkOutPage.billingAddressComponent();
+            await billingAddressComponent.inputFirstName(fistName);
+            await billingAddressComponent.inputLastName(lastName);
+            await billingAddressComponent.inputEmail(email);
+            await billingAddressComponent.inputCompany(company);
+            await billingAddressComponent.selectState(state);
+            await billingAddressComponent.inputCity(city);
+            await billingAddressComponent.inputAddress1(address1);
+            await billingAddressComponent.inputAddress2(address2);
+            await billingAddressComponent.inputZipPostalCode(zipPostalCode);
+            await billingAddressComponent.inputPhoneNumber(phoneNumber);
+            await billingAddressComponent.clickOnContinueBtn();
     });
     }
 }
