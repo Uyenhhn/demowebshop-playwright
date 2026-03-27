@@ -14,10 +14,12 @@ for (const testData of standardComputerData){
 
     await clickProduct.headerComponent().clickOnShoppingCartLink();
     await flow.verifyShoppingCart();
+    await flow.completeCheckout();
+    await flow.BillingAddressStep();
     
 
 
      // DEBUG PURPOSE ONLY
-    await page.waitForTimeout(3 * 1000);
+    await page.waitForTimeout(5 * 1000);
     });
 }

@@ -131,10 +131,11 @@ export class BuyingComputerFlow {
 
     async BillingAddressStep() {
         await test.step('Fill billing address and continue', async () => {
-            const { fistName, 
+            const { firstName, 
                     lastName, 
                     email, 
                     company, 
+                    country,
                     state, 
                     city, 
                     address1, 
@@ -144,11 +145,14 @@ export class BuyingComputerFlow {
                 } = this.testData;
             const checkOutPage = new CheckOutPage(this.page);
             const billingAddressComponent = checkOutPage.billingAddressComponent();
-            await billingAddressComponent.inputFirstName(fistName);
+            await billingAddressComponent.inputFirstName(firstName);
             await billingAddressComponent.inputLastName(lastName);
             await billingAddressComponent.inputEmail(email);
             await billingAddressComponent.inputCompany(company);
-            await billingAddressComponent.selectState(state);
+            await billingAddressComponent.selectCountry(country);
+            if (state) {
+                await billingAddressComponent.selectState(state);
+            }
             await billingAddressComponent.inputCity(city);
             await billingAddressComponent.inputAddress1(address1);
             await billingAddressComponent.inputAddress2(address2);

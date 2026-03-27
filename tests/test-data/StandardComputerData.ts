@@ -9,6 +9,16 @@ export const standardComputerData: ComputerDataType[] =[
     ram: "8GB",
     os: "Windows 7",
     hdd: "400 GB",
-    software: "Microsoft Office"
+    software: "Microsoft Office",
+    firstName: "John",
+    lastName: "Doe",
+    email: "john.doe@example.com",
+    company: "Example Corp",
+    country: "Canada",
+    city: "Los Angeles",
+    address1: "123 Main St",
+    address2: "Apt 4B",
+    zipPostalCode: "90001",
+    phoneNumber: "123-456-7890"
   },
 ];

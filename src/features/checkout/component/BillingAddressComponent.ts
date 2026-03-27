@@ -5,7 +5,7 @@ export class BillingAddressComponent{
         this.component = component; 
     }
     public static selector = '#opc-billing';
-    private fistNameSel = '#BillingNewAddress_FirstName';
+    private firstNameSel = '#BillingNewAddress_FirstName';
     private lastNameSel = '#BillingNewAddress_LastName';
     private emailSel = '#BillingNewAddress_Email';
     private companySel = '#BillingNewAddress_Company';
@@ -17,10 +17,10 @@ export class BillingAddressComponent{
     private zipPostalCodeSel = '#BillingNewAddress_ZipPostalCode';
     private phoneNumberSel = '#BillingNewAddress_PhoneNumber';
     private faxNumberSel = '#BillingNewAddress_FaxNumber';
-    private btnSel = '#billing-buttons-container';
+    private btnSel = 'input[class ="button-1 new-address-next-step-button"]';
 
     async inputFirstName(firstName: string){
-        await this.component.locator(this.fistNameSel).fill(firstName);
+        await this.component.locator(this.firstNameSel).fill(firstName);
     }
 
     async inputLastName(lastName: string){
@@ -34,10 +34,10 @@ export class BillingAddressComponent{
         await this.component.locator(this.companySel).fill(company);
     }
     async selectCountry(country: string){
-        await this.component.locator(this.countrySel).selectOption(country);
+        await this.component.locator(this.countrySel).selectOption({ label: country });
     }
     async selectState(state: string){
-        await this.component.locator(this.stateSel).selectOption(state);
+        await this.component.locator(this.stateSel).selectOption({ label: state });
     }
     async inputCity(city: string){
         await this.component.locator(this.citySel).fill(city);
@@ -60,5 +60,4 @@ export class BillingAddressComponent{
     async clickOnContinueBtn(){
         await this.component.locator(this.btnSel).click();
     }
-
 }
