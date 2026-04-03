@@ -19,8 +19,8 @@ export default class PageBodyComponent {
         const featured = this.component.locator(this.featuredBlockSel);
 
         await Promise.all([
-            this.component.page().waitForURL("**/build-your-own-computer"),
-            featured.locator(".product-title a", { hasText: name }).click()
+            this.component.page().waitForURL(/.*\/build-your.*computer/),
+            featured.locator(".product-title a").filter({ hasText: name }).click()
         ]);
     }
 
