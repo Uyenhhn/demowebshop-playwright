@@ -68,16 +68,16 @@ export class BuyingComputerFlow {
     }
 
     async getAdditionalPrice(optionText: string | null): Promise<number> {
-    if (!optionText) return 0;
+        if (!optionText) return 0;
 
-    const regex = /\+\d+\.\d+/;
-    const match = optionText.match(regex);
+        const regex = /\+\d+\.\d+/;
+        const match = optionText.match(regex);
 
-    if (match) {
-        return Number(match[0].replace('+', '').trim());
-    }
+        if (match) {
+            return Number(match[0].replace('+', '').trim());
+        }
 
-    return 0;
+        return 0;
     }
     async verifyShoppingCart() {
         await test.step('Verify shopping cart logic', async () => {
@@ -122,27 +122,27 @@ export class BuyingComputerFlow {
 
             await totalComponent.acceptTOS();
             await totalComponent.clickOnCheckOutBtn();
-            
+
             const checkoutOptionPage = new CheckoutOptionPage(this.page);
             await checkoutOptionPage.clickOnCheckOutAsGuestBtn();
 
-    });
+        });
     }
 
     async BillingAddressStep() {
         await test.step('Fill billing address and continue', async () => {
-            const { firstName, 
-                    lastName, 
-                    email, 
-                    company, 
-                    country,
-                    state, 
-                    city, 
-                    address1, 
-                    address2, 
-                    zipPostalCode, 
-                    phoneNumber 
-                } = this.testData;
+            const { firstName,
+                lastName,
+                email,
+                company,
+                country,
+                state,
+                city,
+                address1,
+                address2,
+                zipPostalCode,
+                phoneNumber
+            } = this.testData;
             const checkOutPage = new CheckOutPage(this.page);
             const billingAddressComponent = checkOutPage.billingAddressComponent();
             await billingAddressComponent.inputFirstName(firstName);
@@ -159,42 +159,48 @@ export class BuyingComputerFlow {
             await billingAddressComponent.inputZipPostalCode(zipPostalCode);
             await billingAddressComponent.inputPhoneNumber(phoneNumber);
             await billingAddressComponent.clickOnContinueBtn();
-    });
+        });
     }
 
     async ShippingAddressStep() {
         await test.step('Fill shipping address and continue', async () => {
-           const checkOutPage = new CheckOutPage(this.page);
-           const shippingAddressComponent = checkOutPage.shippingAddressComponent();
-           await shippingAddressComponent.clickOnContinueBtn(); 
-        })}
+            const checkOutPage = new CheckOutPage(this.page);
+            const shippingAddressComponent = checkOutPage.shippingAddressComponent();
+            // await shippingAddressComponent.clickInStorePickup();
+            await shippingAddressComponent.clickOnContinueBtn();
+        })
+    }
 
-    async ShippingMethodStep(){
+    async ShippingMethodStep() {
         await test.step('Select shipping method and continue', async () => {
             const checkOutPage = new CheckOutPage(this.page);
             const shippingMethodComponent = checkOutPage.shippingMethodComponent();
             await shippingMethodComponent.clickOnContinueBtn();
-        })}
+        })
+    }
 
-    async PaymentMethodStep(){
+    async PaymentMethodStep() {
         await test.step('Select payment method and continue', async () => {
             const checkOutPage = new CheckOutPage(this.page);
             const paymentMethodComponent = checkOutPage.paymentMethodComponent();
             await paymentMethodComponent.clickOnContinueBtn();
-        })}
+        })
+    }
 
-    async PaymentInformationStep(){
+    async PaymentInformationStep() {
         await test.step('Fill payment information and continue', async () => {
             const checkOutPage = new CheckOutPage(this.page);
             const paymentInformationComponent = checkOutPage.paymentInformationComponent();
             await paymentInformationComponent.clickOnBtn();
-        })}
-        
-    async ConfirmOrderStep(){
+        })
+    }
+
+    async ConfirmOrderStep() {
         await test.step('Confirm order', async () => {
             const checkOutPage = new CheckOutPage(this.page);
             const confirmOrderComponent = checkOutPage.confirmOrderComponent();
             await confirmOrderComponent.clickOnBtn();
-        })}
-
+        })
     }
+
+}

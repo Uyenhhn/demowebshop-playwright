@@ -6,6 +6,11 @@ export class ShippingAddressComponent {
     }
     public static selector = '#opc-shipping';
     private btnSel = 'input[class = "button-1 new-address-next-step-button"]';
+    private checkboxSel = '#PickUpInStore'
+
+    async clickInStorePickup(){
+        await this.component.locator(this.checkboxSel).click();
+    }
     
     async clickOnContinueBtn(){
         await this.component.locator(this.btnSel).click();
